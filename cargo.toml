@@ -1,3 +1,3 @@
 [workspace]
 
-members = ["exec", "decoder", "cutter"]
+members = ["exec", "decoder", "cutter", "parser"]
