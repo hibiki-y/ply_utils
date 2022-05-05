@@ -6,14 +6,9 @@ use structopt::StructOpt;
 fn main() {
     let option = parser::METHOD::from_args();
     match option {
-        parser::METHOD::CUT {
-            cutsize,
-            fast,
-            property,
-        } => {
+        parser::METHOD::CUT { fast, property } => {
             if fast == true {
-                println!("fast cut");
-                cutter::cut_property("./test/test.ply", "./out/output_test-1.ply", 0, cutsize);
+                println!("not implemented");
             } else {
                 println!("cut auto");
                 println!("property: {:?}", property);

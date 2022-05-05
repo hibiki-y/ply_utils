@@ -1,16 +1,12 @@
 extern crate clap;
-use std::fs::File;
-use std::io::BufReader;
 use structopt::StructOpt;
 
-///コマンドライン引数
+///オプション
 #[derive(StructOpt, Debug)]
 pub enum METHOD {
     ///Cut ply property: cargo run -- cut -h
     CUT {
         /// TEST
-        #[structopt(short, long, help = "put cut size")]
-        cutsize: usize,
         #[structopt(short, long, help = "put cut property")]
         property: Vec<String>,
         #[structopt(short, long, help = "Put command is true")]
@@ -24,89 +20,43 @@ pub enum METHOD {
     },
     //Example: cargo run -- decode -s 1
 }
-pub enum PROPERTY {
-    X,
-    Y,
-    Z,
-    NX,
-    NY,
-    NZ,
-    RED,
-    GREEN,
-    BLUE,
-    ALPHA,
-    MATERIALINDEX,
-}
-impl PROPERTY {
-    pub fn parse_property(s: &str) -> PROPERTY {
-        match s {
-            "x" => PROPERTY::X,
-            "y" => PROPERTY::Y,
-            "z" => PROPERTY::Z,
-            "nx" => PROPERTY::NX,
-            "ny" => PROPERTY::NY,
-            "nz" => PROPERTY::NZ,
-            "red" => PROPERTY::RED,
-            "green" => PROPERTY::GREEN,
-            "blue" => PROPERTY::BLUE,
-            _ => unreachable!(),
+///read file and return write line
+pub fn parser(mut line: String, prop: &Vec<String>) -> (String, Option<bool>) {
+    let mut property_count = None;
+    let h = match line.split_ascii_whitespace().next().unwrap() {
+        "element" => {
+            let number = line.split_ascii_whitespace().nth(2).unwrap();
+            println!("point count: {}", number);
+            line + "\n"
         }
+        "format" => line.to_string() + "comment cut_by_ply-utils 7318184@alumni.tus.ac.jp\n",
+        "property" => {
+            let mut a = String::new(); //FIXME
+            if prop
+                .iter()
+                .any(|p| p.as_str() == line.split_ascii_whitespace().nth(2).unwrap())
+                == true
+            {
+                property_count = Some(true);
+                a = line + "\n"
+            } else {
+                property_count = Some(false);
+                line.clear()
+            }
+            a
+        }
+        "comment" => {
+            line.clear();
+            line
+        }
+        _ => line + "\n",
+    };
+    (h, property_count)
+}
+pub fn check_end_header(a: String) -> Option<String> {
+    if a == "end_header" {
+        None
+    } else {
+        Some(a)
     }
 }
-// struct HEADER {
-//     pub header: String,
-//     property_stock: Vec<usize>,
-// }
-// impl HEADER {
-//     pub fn new() -> HEADER {
-//         HEADER {
-//             header: String::new(),
-//         }
-//     }
-//     pub fn parse(reader: BufReader<File>) {
-//         reader.read_line(&mut header).expect("reading fail");
-//         match header.split_ascii_whitespace().next().unwrap() {
-//             "element" => {
-//                 let number = header.split_ascii_whitespace().nth(2).unwrap();
-//                 println!("point count: {}", number);
-//                 writer.write(header.as_bytes()).unwrap();
-//                 header.clear();
-//             }
-//             "format" => {
-//                 writer.write(header.as_bytes()).unwrap();
-//                 writer
-//                     .write(b"comment cut_by_ply-utils 7318184@alumni.tus.ac.jp\n")
-//                     .unwrap();
-//                 header.clear();
-//             }
-//             "property" => {
-//                 if prop
-//                     .iter()
-//                     .any(|p| p.as_str() == header.split_ascii_whitespace().nth(2).unwrap())
-//                     == true
-//                 {
-//                     property_stock.push(property_count);
-//                     writer.write(header.as_str().as_bytes()).unwrap();
-//                     header.clear();
-//                 } else {
-//                     header.clear();
-//                 }
-
-//                 property_count += 1;
-//             }
-//             "comment" => {
-//                 header.clear();
-//             }
-//             "end_header" => {
-//                 writer.write(header.as_bytes()).unwrap();
-//                 header.clear();
-//                 println!("finish read header");
-//                 break;
-//             }
-//             _ => {
-//                 writer.write(header.as_bytes()).unwrap();
-//                 header.clear();
-//             }
-//         }
-//     }
-// }
