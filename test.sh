@@ -9,7 +9,7 @@ echo $LINE >> $LOG
 echo "TEST START" >> $LOG
 date >> $LOG
 echo $LINE >> $LOG
-cargo run -- cut 3  &>> $LOG
+cargo run -- cut -c 3  &>> $LOG
 echo $LINE >> $LOG
 echo "TEST FINISH" >> $LOG
 date >> $LOG
