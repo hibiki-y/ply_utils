@@ -5,9 +5,10 @@ use std::io::{BufRead, BufReader, BufWriter, Read, Write};
 ///xyz,rgb,全て3つで1セットのため
 pub const CUT_TYPE_RANGE: usize = 3;
 
+pub const HEADER_CAPACITY: u8 = 80;
+
 pub fn to_string(input_path: &str, output_path: &str) {
     const ELEMENT_VERTEX_COUNT: usize = 300;
-    const HEADER_CAPACITY: u8 = 20;
 
     let mut reader = BufReader::new(File::open(input_path).expect("file open failed"));
     let mut writer = BufWriter::new(File::create(output_path).expect("file create failed"));
