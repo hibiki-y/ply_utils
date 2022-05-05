@@ -3,17 +3,20 @@ use structopt::StructOpt;
 
 ///コマンドライン引数
 #[derive(StructOpt, Debug)]
-#[structopt(about = "I am a program and I work, just pass `-h`")]
 pub enum METHOD {
+    ///Cut ply property: cargo run -- cut -h
     CUT {
         /// TEST
-        // #[structopt(short = "c", long = "cut")]
-        cut: usize,
+        #[structopt(short = "c", long = "cut", help = "put cut size")]
+        cutsize: usize,
+        #[structopt(short, long, help = "Put command is true")]
+        fast: bool,
     },
+    ///Decode ply property: cargo run -- decode -h
     DECODE {
         /// TEST
-        #[structopt(short = "d", long = "decode")]
-        decode: bool,
+        #[structopt(short, long, help = "put command is true")]
+        switch: bool,
     },
+    //Example: cargo run -- decode -s 1
 }
-// #[structopt(name = "basic")]

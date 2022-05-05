@@ -6,27 +6,26 @@ use structopt::StructOpt;
 fn main() {
     let option = parser::METHOD::from_args();
     match option {
-        parser::METHOD::CUT { cut } => {
-            cutter::cut_property("./test/test.ply", "./out/output_test-1.ply", 0, cut);
+        parser::METHOD::CUT { cutsize, fast } => {
+            if fast == true {
+                println!("fast cut");
+                cutter::cut_property("./test/test.ply", "./out/output_test-1.ply", 0, cutsize);
+            } else {
+                println!("not implemented yet");
+            }
         }
-        parser::METHOD::DECODE { decode } => {
-            decoder::to_string(
-                "./original/dancer_vox11_00000001.ply",
-                "./out/decode_test11.ply",
-            );
+        parser::METHOD::DECODE { switch } => {
+            if switch == true {
+                decoder::to_string(
+                    "./original/dancer_vox11_00000001.ply",
+                    "./out/decode_test11.ply",
+                );
+            } else {
+                println!("exec is false");
+            }
         }
         _ => {
             println!("not implemented");
         }
     }
-
-    // }
-    // let c = opts.cut;
-    // println!("cut start");
-    // cutter::cut_property("./test/test.ply", "./out/output_test-1.ply", 0, c);
-    // println!("decode start");
-    // decoder::to_string(
-    //     "./original/dancer_vox11_00000001.ply",
-    //     "./out/decode_test11.ply",
-    // );
 }
