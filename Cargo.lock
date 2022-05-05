@@ -82,9 +82,6 @@ dependencies = [
 [[package]]
 name = "cutter"
 version = "0.1.0"
-dependencies = [
- "decoder",
-]
 
 [[package]]
 name = "decoder"
