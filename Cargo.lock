@@ -83,7 +83,6 @@ dependencies = [
 name = "cutter"
 version = "0.1.0"
 dependencies = [
- "decoder",
  "parser",
 ]
 
