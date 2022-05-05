@@ -3,14 +3,12 @@ use std::io::{BufRead, BufReader, BufWriter, Write};
 extern crate decoder;
 use decoder::CUT_TYPE_RANGE;
 use decoder::HEADER_CAPACITY;
-extern crate parser;
 
 pub fn cut_auto(input_path: &str, output_path: &str, prop: Vec<String>) {
     let mut reader = BufReader::new(File::open(input_path).expect("file open failed"));
     let mut writer = BufWriter::new(File::create(output_path).expect("file create failed"));
     let mut header = String::new();
 
-    let mut point_count = 0;
     let mut property_stock = Vec::new();
     let mut property_count = 0usize;
     println!("cut start");
@@ -19,8 +17,7 @@ pub fn cut_auto(input_path: &str, output_path: &str, prop: Vec<String>) {
         match header.split_ascii_whitespace().next().unwrap() {
             "element" => {
                 let number = header.split_ascii_whitespace().nth(2).unwrap();
-                point_count = number.parse::<u32>().unwrap();
-                println!("point count: {}", point_count);
+                println!("point count: {}", number);
                 writer.write(header.as_bytes()).unwrap();
                 header.clear();
             }

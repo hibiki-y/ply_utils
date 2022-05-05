@@ -30,8 +30,5 @@ fn main() {
                 println!("exec is false");
             }
         }
-        _ => {
-            println!("not implemented");
-        }
     }
 }
