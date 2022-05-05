@@ -2,5 +2,5 @@
 
 ## Usage
 ```
-cargo run -- --help
+cargo run -- help
 ```
