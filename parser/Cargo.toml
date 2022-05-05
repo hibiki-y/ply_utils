@@ -1,12 +1,11 @@
 [package]
-name = "exec"
+name = "parser"
 version = "0.1.0"
 edition = "2021"
+description = "Clap Example CLI"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+clap = "3.1.15"
 structopt = "0.3.26"
-decoder = { path = "../decoder" }
-cutter = { path = "../cutter" }
-parser = { path = "../parser" }

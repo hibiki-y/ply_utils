@@ -2,9 +2,10 @@ use byteorder::{ByteOrder, LittleEndian};
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Read, Write};
 
+///xyz,rgb,全て3つで1セットのため
+pub const CUT_TYPE_RANGE: usize = 3;
+
 pub fn to_string(input_path: &str, output_path: &str) {
-    ///xyz,rgb,全て3つで1セットのため
-    pub const CUT_TYPE_RANGE: usize = 3;
     const ELEMENT_VERTEX_COUNT: usize = 300;
     const HEADER_CAPACITY: u8 = 20;
 
@@ -84,12 +85,12 @@ mod tests {
     #[test]
     fn test_decode() {
         to_string(
-            "./original/dancer_vox11_00000001.ply",
-            "./out/decode_test11.ply",
+            "../original/dancer_vox11_00000001.ply",
+            "../out/decode_test1.ply",
         );
         // to_string(
-        //     "./original/basketball_player_vox11_00000001.ply",
-        //     "./out/decode_test12.ply",
+        //     "../original/basketball_player_vox11_00000001.ply",
+        //     "../out/decode_test2.ply",
         // )
     }
 }
