@@ -6,23 +6,26 @@ use structopt::StructOpt;
 fn main() {
     let option = parser::METHOD::from_args();
     match option {
-        parser::METHOD::CUT { fast, property } => {
-            if fast == true {
-                println!("not implemented");
-            } else {
-                println!("cut auto");
-                println!("property: {:?}", property);
-                cutter::cut_auto("./test/original_test.ply", "./out/result.ply", property);
-            }
+        parser::METHOD::CUT {
+            property,
+            input_path,
+            output_path,
+        } => {
+            //"./test/original_test.ply"
+            println!("cut auto");
+            println!("property: {:?}", property);
+            cutter::cut_auto(input_path, output_path, property);
+            println!("cut auto end");
         }
-        parser::METHOD::DECODE { switch } => {
+        parser::METHOD::DECODE {
+            switch,
+            input_path,
+            output_path,
+        } => {
             if switch == true {
-                decoder::to_string(
-                    "./original/dancer_vox11_00000001.ply",
-                    "./out/decode_test11.ply",
-                );
+                decoder::to_string(input_path, output_path);
             } else {
-                println!("exec is false");
+                println!("not implemented");
             }
         }
     }
