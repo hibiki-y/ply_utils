@@ -79,9 +79,12 @@ mod tests {
             PathBuf::from("../original/dancer_vox11_00000001.ply"),
             PathBuf::from("../out/decode_test1.ply"),
         );
-        // to_string(
-        //     "../original/basketball_player_vox11_00000001.ply",
-        //     "../out/decode_test2.ply",
-        // )
+    }
+    #[test]
+    fn test_another() {
+        to_string(
+            PathBuf::from("../original/basketball_player_vox11_00000001.ply"),
+            PathBuf::from("../out/decode_test2.ply"),
+        )
     }
 }

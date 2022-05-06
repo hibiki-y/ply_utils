@@ -2,10 +2,10 @@ extern crate clap;
 use std::path::PathBuf;
 use structopt::StructOpt;
 
-///オプション
+///Option
 #[derive(StructOpt, Debug)]
 pub enum METHOD {
-    ///Cut ply property: cargo run -- cut -h
+    ///Cut ply property: need option -p property, -i input_path, -o output_path
     CUT {
         /// TEST
         #[structopt(short, long, help = "put cut property")]
@@ -15,7 +15,7 @@ pub enum METHOD {
         #[structopt(short, long, help = "Put output_path")]
         output_path: PathBuf,
     },
-    ///Decode ply property: cargo run -- decode -h
+    ///Decode ply property: need option -i input_path, -o output_path
     DECODE {
         /// TEST
         #[structopt(short, long, help = "put command is true")]
