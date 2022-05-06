@@ -12,7 +12,7 @@ fn main() {
             } else {
                 println!("cut auto");
                 println!("property: {:?}", property);
-                cutter::cut_auto("./test/test.ply", "./out/output_test-3.ply", property);
+                cutter::cut_auto("./test/original_test.ply", "./out/result.ply", property);
             }
         }
         parser::METHOD::DECODE { switch } => {

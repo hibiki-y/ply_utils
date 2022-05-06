@@ -91,6 +91,7 @@ name = "decoder"
 version = "0.1.0"
 dependencies = [
  "byteorder",
+ "parser",
 ]
 
 [[package]]

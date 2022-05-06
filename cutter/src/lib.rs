@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Write};
 extern crate parser;
+use parser::PARSER;
 
 pub fn cut_auto(input_path: &str, output_path: &str, property: Vec<String>) {
     let mut writer = BufWriter::new(File::create(output_path).expect("file create failed"));
@@ -11,9 +12,9 @@ pub fn cut_auto(input_path: &str, output_path: &str, property: Vec<String>) {
     let mut property_flag = Vec::new(); //propertyならSome
     reader_iter
         .by_ref()
-        .scan((), |_, str| parser::check_end_header(str.unwrap()))
+        .scan((), |_, str| PARSER::check_end_header(str.unwrap()))
         .for_each(|line| {
-            let (l, flag) = parser::parser(line, &property);
+            let (l, flag) = PARSER::parser(line, &property);
             property_flag.push(flag);
             writer.write(l.as_bytes()).unwrap();
         });
@@ -49,10 +50,10 @@ pub fn cut_auto(input_path: &str, output_path: &str, property: Vec<String>) {
 mod tests {
     use crate::cut_auto;
     #[test]
-    fn t() {
+    fn test() {
         cut_auto(
-            "../test/test.ply",
-            "../out/autocut_test-3.ply",
+            "../test/original_test.ply",
+            "../out/cut_auto_test.ply",
             vec![String::from("x"), String::from("ny")],
         );
     }
