@@ -7,7 +7,7 @@ cargo run -- SUBCOMMAND
 ```
 
 ## SUBCOMMANDS
-### cut
+### help
 Prints this message or the help of the given subcommands
 ### cut
 This command cut out ascii ply property
