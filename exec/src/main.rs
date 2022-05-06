@@ -11,7 +11,6 @@ fn main() {
             input_path,
             output_path,
         } => {
-            //"./test/original_test.ply"
             println!("cut auto");
             println!("property: {:?}", property);
             cutter::cut_auto(input_path, output_path, property);
@@ -23,9 +22,9 @@ fn main() {
             output_path,
         } => {
             if switch == true {
-                decoder::to_string(input_path, output_path);
-            } else {
                 println!("not implemented");
+            } else {
+                decoder::to_string(input_path, output_path);
             }
         }
     }

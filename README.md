@@ -2,5 +2,10 @@
 
 ## Usage
 ```
+cargo run -- SUBCOMMAND
+```
+
+## Example
+```
 cargo run -- help
 ```
