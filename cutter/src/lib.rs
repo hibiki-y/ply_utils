@@ -2,8 +2,9 @@ use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Write};
 extern crate parser;
 use parser::PARSER;
+use std::path::PathBuf;
 
-pub fn cut_auto(input_path: &str, output_path: &str, property: Vec<String>) {
+pub fn cut_auto(input_path: PathBuf, output_path: PathBuf, property: Vec<String>) {
     let mut writer = BufWriter::new(File::create(output_path).expect("file create failed"));
     let mut reader_iter = BufReader::new(File::open(input_path).expect("file open failed"))
         .lines()
@@ -49,11 +50,12 @@ pub fn cut_auto(input_path: &str, output_path: &str, property: Vec<String>) {
 #[cfg(test)]
 mod tests {
     use crate::cut_auto;
+    use std::path::PathBuf;
     #[test]
     fn test() {
         cut_auto(
-            "../test/original_test.ply",
-            "../out/cut_auto_test.ply",
+            PathBuf::from("../test/original_test.ply"),
+            PathBuf::from("../out/cut_auto_test.ply"),
             vec![String::from("x"), String::from("ny")],
         );
     }

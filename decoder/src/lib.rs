@@ -1,10 +1,11 @@
 use byteorder::{ByteOrder, LittleEndian};
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Read, Write};
+use std::path::PathBuf;
 extern crate parser;
 use parser::PropertyType;
 
-pub fn to_string(input_path: &str, output_path: &str) {
+pub fn to_string(input_path: PathBuf, output_path: PathBuf) {
     const ELEMENT_VERTEX_COUNT: usize = 300;
 
     let mut reader = BufReader::new(File::open(input_path).expect("file open failed"));
@@ -71,11 +72,12 @@ pub fn to_string(input_path: &str, output_path: &str) {
 #[cfg(test)]
 mod tests {
     use crate::to_string;
+    use std::path::PathBuf;
     #[test]
     fn test_decode() {
         to_string(
-            "../original/dancer_vox11_00000001.ply",
-            "../out/decode_test1.ply",
+            PathBuf::from("../original/dancer_vox11_00000001.ply"),
+            PathBuf::from("../out/decode_test1.ply"),
         );
         // to_string(
         //     "../original/basketball_player_vox11_00000001.ply",
