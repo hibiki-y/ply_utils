@@ -5,7 +5,7 @@ use structopt::StructOpt;
 ///Option
 #[derive(StructOpt, Debug)]
 pub enum METHOD {
-    ///Cut ply property: need option -p property, -i input_path, -o output_path
+    ///Cut out ply property: need option -p cut_property_names(if you choice multiple properties, need space) -i input_path -o output_path
     CUT {
         /// TEST
         #[structopt(short, long, help = "put cut property")]
@@ -15,7 +15,7 @@ pub enum METHOD {
         #[structopt(short, long, help = "Put output_path")]
         output_path: PathBuf,
     },
-    ///Decode ply property: need option -i input_path, -o output_path
+    ///Decode ply property: need option -i input_path -o output_path
     DECODE {
         /// TEST
         #[structopt(short, long, help = "put command is true")]
