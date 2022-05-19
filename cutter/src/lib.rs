@@ -1,14 +1,11 @@
+use parser::PARSER;
 use std::fs::File;
 use std::io::{BufRead, BufReader, BufWriter, Write};
-extern crate parser;
-use parser::PARSER;
 use std::path::PathBuf;
 
 pub fn cut_auto(input_path: PathBuf, output_path: PathBuf, property: Vec<String>) {
     let mut writer = BufWriter::new(File::create(output_path).expect("file create failed"));
-    let mut reader_iter = BufReader::new(File::open(input_path).expect("file open failed"))
-        .lines()
-        .into_iter();
+    let mut reader_iter = BufReader::new(File::open(input_path).expect("file open failed")).lines();
 
     let mut property_flag = Vec::new(); //propertyならSome
     reader_iter
@@ -34,7 +31,7 @@ pub fn cut_auto(input_path: PathBuf, output_path: PathBuf, property: Vec<String>
             .filter(|&(number, _)| {
                 property_stock
                     .iter()
-                    .any(|&(pos, flag)| pos == number && flag == true)
+                    .any(|&(pos, flag)| pos == number && flag)
             })
             .for_each(|(_, word)| {
                 buf.push_str(word);
@@ -43,7 +40,6 @@ pub fn cut_auto(input_path: PathBuf, output_path: PathBuf, property: Vec<String>
         buf.pop(); //delete last space
         buf.push_str("\n");
         writer.write(buf.as_bytes()).unwrap();
-        buf.clear();
     });
 }
 
