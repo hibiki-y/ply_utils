@@ -1,10 +1,9 @@
-extern crate cutter;
-extern crate decoder;
-extern crate parser;
+use std::time::Instant;
 use structopt::StructOpt;
 
 fn main() {
     let option = parser::METHOD::from_args();
+    let istart = Instant::now();
     match option {
         parser::METHOD::CUT {
             property,
@@ -12,9 +11,10 @@ fn main() {
             output_path,
         } => {
             println!("cut auto");
-            println!("property: {:?}", property);
+            println!("cut property: {:?}", property);
             cutter::cut_auto(input_path, output_path, property);
             println!("cut auto end");
+            println!("cut time = {:?}", istart.elapsed());
         }
         parser::METHOD::DECODE {
             switch,
@@ -25,6 +25,7 @@ fn main() {
                 println!("not implemented");
             } else {
                 decoder::to_string(input_path, output_path);
+                println!("decode time = {:?}", istart.elapsed());
             }
         }
     }
