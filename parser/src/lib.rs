@@ -1,6 +1,7 @@
-extern crate clap;
 use std::path::PathBuf;
 use structopt::StructOpt;
+
+const A: &str = "x y";
 
 ///Option
 #[derive(StructOpt, Debug)]
@@ -8,7 +9,7 @@ pub enum METHOD {
     ///Cut out ply property: need option -p cut_property_names(if you choice multiple properties, need space) -i input_path -o output_path
     CUT {
         /// TEST
-        #[structopt(short, long, help = "put cut property")]
+        #[structopt(short, long, default_value = A, help = "put cut property")]
         property: Vec<String>,
         #[structopt(short, long, help = "Put input_path")]
         input_path: PathBuf,
@@ -39,7 +40,9 @@ impl PARSER {
                 println!("point count: {}", number);
                 line + "\n"
             }
-            "format" => line.to_string() + "comment cut_by_ply-utils 7318184@alumni.tus.ac.jp\n",
+            "format" => {
+                line.to_string() + "\n" + "comment cut_by_ply-utils 7318184@alumni.tus.ac.jp\n"
+            }
             "property" => {
                 let mut a = String::new(); //FIXME
                 if prop
